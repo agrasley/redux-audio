@@ -64,7 +64,7 @@ const Audio = React.createClass({
 
   propTypes: {
     autoPlay: PropTypes.bool,
-    command: PropTypes.oneOf(['play', 'pause', 'none']).isRequired(),
+    command: PropTypes.oneOf(['play', 'pause', 'none']).isRequired,
     controls: PropTypes.bool,
     loop: PropTypes.bool,
     onEnded: PropTypes.func.isRequired,
