@@ -2,10 +2,10 @@
 
 import { Map } from 'immutable'
 import { AUDIO_ENDED, AUDIO_PLAY, AUDIO_PAUSE, AUDIO_PLAYING, AUDIO_PAUSED,
-         AUDIO_REGISTER, AUDIO_UNREGISTER } from './actions/TYPES'
+         AUDIO_REGISTER, AUDIO_UNREGISTER, AUDIO_SRC } from './actions/TYPES'
 
 const getNewMap = () => {
-  return Map({command: 'none', state: 'none'})
+  return Map({command: 'none', state: 'none', src: ''})
 }
 
 const singleReducer = (state, action) => {
@@ -20,6 +20,8 @@ const singleReducer = (state, action) => {
       return state.set('state', 'paused')
     case AUDIO_ENDED:
       return state.set('state', 'ended')
+    case AUDIO_SRC:
+      return state.set('src', action.src)
     default:
       return state
   }
@@ -36,6 +38,7 @@ export default (state = Map(), action) => {
     case AUDIO_PAUSE:
     case AUDIO_PAUSED:
     case AUDIO_ENDED:
+    case AUDIO_SRC:
       return state.set(action.id, singleReducer(state.get(action.id), action))
     default:
       return state

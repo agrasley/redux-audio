@@ -51,15 +51,19 @@ const Audio = React.createClass({
   render () {
     const { autoPlay, controls, loop, preload, src } = this.props
 
-    return (
-      <audio
-        autoPlay={autoPlay}
-        controls={controls}
-        loop={loop}
-        preload={preload}
-        src={src}
-      />
-    )
+    if (src) {
+      return (
+        <audio
+          autoPlay={autoPlay}
+          controls={controls}
+          loop={loop}
+          preload={preload}
+          src={src}
+        />
+      )
+    } else {
+      return false
+    }
   },
 
   propTypes: {

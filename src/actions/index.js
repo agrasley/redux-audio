@@ -1,6 +1,7 @@
 'use strict'
 
-import { AUDIO_PLAY, AUDIO_PLAYING, AUDIO_PAUSE, AUDIO_PAUSED, AUDIO_ENDED, AUDIO_REGISTER, AUDIO_UNREGISTER } from './TYPES'
+import { AUDIO_PLAY, AUDIO_PLAYING, AUDIO_PAUSE, AUDIO_PAUSED, AUDIO_ENDED,
+         AUDIO_REGISTER, AUDIO_UNREGISTER, AUDIO_SRC } from './TYPES'
 
 export const audioPlay = (id) => {
   return {type: AUDIO_PLAY, id}
@@ -28,4 +29,8 @@ export const audioRegister = (id) => {
 
 export const audioUnregister = (id) => {
   return {type: AUDIO_UNREGISTER, id}
+}
+
+export const audioSrc = (id, src) => {
+  return {type: AUDIO_SRC, id, src}
 }
