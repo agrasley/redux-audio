@@ -5,8 +5,9 @@ import Audio from './Audio'
 import { audioEnded, audioRegister, audioPaused, audioPlaying, audioUnregister } from './actions'
 
 const mapStateToProps = (state, ownProps) => {
+  const stateObj = state.audio.get(ownProps.uniqueId)
   return {
-    command: state.audio.get(ownProps.uniqueId).get('command')
+    command: stateObj ? stateObj.get('command') : 'none'
   }
 }
 
