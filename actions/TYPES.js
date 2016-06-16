@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('./lib/actions/TYPES')
+module.exports = require('../lib/actions/TYPES')
