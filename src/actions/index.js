@@ -29,6 +29,3 @@ export const audioRegister = (id) => {
 export const audioUnregister = (id) => {
   return {type: AUDIO_UNREGISTER, id}
 }
-
-import * as TYPES from './TYPES'
-export { TYPES }
