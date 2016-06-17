@@ -6,7 +6,7 @@ import { audioEnded, audioRegister, audioPaused, audioPlaying, audioUnregister }
 
 const mapStateToProps = (state, ownProps) => {
   const stateObj = state.audio.get(ownProps.uniqueId)
-  if (ownProps.src) {
+  if (ownProps.src && stateObj && !stateObj.get('src')) {
     return {
       command: stateObj ? stateObj.get('command') : 'none'
     }
