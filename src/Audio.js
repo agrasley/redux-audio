@@ -2,7 +2,6 @@
 
 import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import uniqueId from 'lodash/fp/uniqueId'
 
 const Audio = React.createClass({
   play () {
@@ -18,8 +17,7 @@ const Audio = React.createClass({
       autoPlay: false,
       controls: false,
       loop: false,
-      preload: 'metadata',
-      uniqueId: uniqueId('audio/')
+      preload: 'metadata'
     }
   },
 
@@ -74,7 +72,7 @@ const Audio = React.createClass({
     onUnmount: PropTypes.func.isRequired,
     preload: PropTypes.oneOf(['none', 'metadata', 'auto']),
     src: PropTypes.string.isRequired,
-    uniqueId: PropTypes.string
+    id: PropTypes.string.isRequired
   }
 })
 
