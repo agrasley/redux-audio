@@ -72,7 +72,7 @@ const Audio = React.createClass({
     onUnmount: PropTypes.func.isRequired,
     preload: PropTypes.oneOf(['none', 'metadata', 'auto']),
     src: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
+    uniqueId: PropTypes.string.isRequired
   }
 })
 

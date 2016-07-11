@@ -5,7 +5,7 @@ import Audio from './Audio'
 import { audioEnded, audioRegister, audioPaused, audioPlaying, audioUnregister } from './actions'
 
 const mapStateToProps = (state, ownProps) => {
-  const stateObj = state.audio.get(ownProps.id)
+  const stateObj = state.audio.get(ownProps.uniqueId)
   if (ownProps.src && stateObj && !stateObj.get('src')) {
     return {
       command: stateObj ? stateObj.get('command') : 'none'
@@ -21,19 +21,19 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onEnded: () => {
-      dispatch(audioEnded(ownProps.id))
+      dispatch(audioEnded(ownProps.uniqueId))
     },
     onMount: () => {
-      dispatch(audioRegister(ownProps.id))
+      dispatch(audioRegister(ownProps.uniqueId))
     },
     onPause: () => {
-      dispatch(audioPaused(ownProps.id))
+      dispatch(audioPaused(ownProps.uniqueId))
     },
     onPlaying: () => {
-      dispatch(audioPlaying(ownProps.id))
+      dispatch(audioPlaying(ownProps.uniqueId))
     },
     onUnmount: () => {
-      dispatch(audioUnregister(ownProps.id))
+      dispatch(audioUnregister(ownProps.uniquId))
     }
   }
 }
