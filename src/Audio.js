@@ -47,7 +47,7 @@ const Audio = React.createClass({
   },
 
   render () {
-    const { autoPlay, controls, loop, preload, src, id } = this.props
+    const { autoPlay, controls, loop, preload, src } = this.props
 
     return (
       <audio
@@ -56,7 +56,6 @@ const Audio = React.createClass({
         loop={loop}
         preload={preload}
         src={src}
-        id={id}
       />
     )
   },
