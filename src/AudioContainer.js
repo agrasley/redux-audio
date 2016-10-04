@@ -20,19 +20,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onEnded: () => {
+    onEndedHandler: () => {
       dispatch(audioEnded(ownProps.uniqueId))
     },
-    onMount: () => {
+    onMountHandler: () => {
       dispatch(audioRegister(ownProps.uniqueId))
     },
-    onPause: () => {
+    onPauseHandler: () => {
       dispatch(audioPaused(ownProps.uniqueId))
     },
-    onPlaying: () => {
+    onPlayingHandler: () => {
       dispatch(audioPlaying(ownProps.uniqueId))
     },
-    onUnmount: () => {
+    onUnmountHandler: () => {
       dispatch(audioUnregister(ownProps.uniquId))
     }
   }

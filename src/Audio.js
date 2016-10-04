@@ -22,24 +22,24 @@ const Audio = React.createClass({
   },
 
   componentWillMount () {
-    this.props.onMount()
+    this.props.onMountHandler()
   },
 
   componentDidMount () {
     const audio = ReactDOM.findDOMNode(this)
-    const { onEnded, onPause, onPlaying } = this.props
-    audio.addEventListener('ended', onEnded)
-    audio.addEventListener('pause', onPause)
-    audio.addEventListener('playing', onPlaying)
+    const { onEndedHandler, onPauseHandler, onPlayingHandler } = this.props
+    audio.addEventListener('ended', onEndedHandler)
+    audio.addEventListener('pause', onPauseHandler)
+    audio.addEventListener('playing', onPlayingHandler)
   },
 
   componentWillUnmount () {
     const audio = ReactDOM.findDOMNode(this)
-    const { onEnded, onPause, onPlaying, onUnmount } = this.props
-    audio.removeEventListener('ended', onEnded)
-    audio.removeEventListener('pause', onPause)
-    audio.removeEventListener('playing', onPlaying)
-    onUnmount()
+    const { onEndedHandler, onPauseHandler, onPlayingHandler, onUnmountHandler } = this.props
+    audio.removeEventListener('ended', onEndedHandler)
+    audio.removeEventListener('pause', onPauseHandler)
+    audio.removeEventListener('playing', onPlayingHandler)
+    onUnmountHandler()
   },
 
   componentDidUpdate (prevProps) {
@@ -47,7 +47,7 @@ const Audio = React.createClass({
   },
 
   render () {
-    const { autoPlay, controls, loop, preload, src } = this.props
+      const { autoPlay, controls, loop, preload, src, onEnded, onPause, onPlaying } = this.props
 
     return (
       <audio
@@ -56,6 +56,9 @@ const Audio = React.createClass({
         loop={loop}
         preload={preload}
         src={src}
+        onEnded={onEnded}
+        onPause={onPause}
+        onPlaying={onPlaying}
       />
     )
   },
@@ -65,11 +68,11 @@ const Audio = React.createClass({
     command: PropTypes.oneOf(['play', 'pause', 'none']).isRequired,
     controls: PropTypes.bool,
     loop: PropTypes.bool,
-    onEnded: PropTypes.func.isRequired,
-    onMount: PropTypes.func.isRequired,
-    onPause: PropTypes.func.isRequired,
-    onPlaying: PropTypes.func.isRequired,
-    onUnmount: PropTypes.func.isRequired,
+    onEndedHandler: PropTypes.func.isRequired,
+    onMountHandler: PropTypes.func.isRequired,
+    onPauseHandler: PropTypes.func.isRequired,
+    onPlayingHandler: PropTypes.func.isRequired,
+    onUnmountHandler: PropTypes.func.isRequired,
     preload: PropTypes.oneOf(['none', 'metadata', 'auto']),
     src: PropTypes.string.isRequired,
     uniqueId: PropTypes.string.isRequired
