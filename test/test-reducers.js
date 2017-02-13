@@ -7,7 +7,7 @@ const it = require('mocha-sugar-free').it
 const expect = require('chai').expect
 const reducer = require('../src/reducers').default
 const { audioPlay, audioPlaying, audioPause, audioPaused, audioEnded,
-        audioRegister, audioUnregister, audioSrc } = require('../src/actions')
+        audioRegister, audioUnregister, audioSrc, audioCommand } = require('../src/actions')
 const Map = require('immutable').Map
 
 describe('reducers', () => {
@@ -65,6 +65,17 @@ describe('reducers', () => {
     it('changes the state of the Map with the corresponding src', () => {
       const result = reducer(Map({id: Map({command: 'none', state: 'none', src: ''})}), audioSrc('id', 'src'))
       expect(result.get('id').equals(Map({command: 'none', state: 'none', src: 'src'}))).to.be.true
+    })
+  })
+
+  describe('AUDIO_COMMAND actions', () => {
+    it('changes the state of the Map to set command to "none"', () => {
+      const result = reducer(Map({id: Map({command: 'play', state: 'playing', src: 'src'})}), audioCommand('id'))
+      expect(result.get('id').toJS()).to.deep.equal({
+        command: 'none',
+        state: 'playing',
+        src: 'src'
+      })
     })
   })
 })
