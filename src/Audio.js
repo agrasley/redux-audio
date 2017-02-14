@@ -12,6 +12,15 @@ const Audio = React.createClass({
     ReactDOM.findDOMNode(this).pause()
   },
 
+  skip (time) {
+    const el = ReactDOM.findDOMNode(this)
+    el.currentTime = el.currentTime + time
+  },
+
+  seek (time) {
+    ReactDOM.findDOMNode(this).currentTime = time
+  },
+
   getDefaultProps () {
     return {
       autoPlay: false,
@@ -43,9 +52,11 @@ const Audio = React.createClass({
   },
 
   componentDidUpdate (prevProps) {
-    if (this.props.command !== 'none' && this.props.command !== prevProps.command) {
-      this[this.props.command]()
-      this.props.onCommand(this.props.command);
+    const command = this.props.command
+
+    if (command !== 'none' && command !== prevProps.command) {
+      this[command.command](...command.args || [])
+      this.props.onCommandComplete(command.command)
     }
   },
 
@@ -65,7 +76,13 @@ const Audio = React.createClass({
 
   propTypes: {
     autoPlay: PropTypes.bool,
-    command: PropTypes.oneOf(['play', 'pause', 'none']).isRequired,
+    command: PropTypes.oneOfType([
+      PropTypes.oneOf(['none']),
+      PropTypes.shape({
+        command: PropTypes.oneOf(['play', 'pause', 'skip', 'seek']).isRequired,
+        args: PropTypes.array
+      })
+    ]).isRequired,
     controls: PropTypes.bool,
     loop: PropTypes.bool,
     onEnded: PropTypes.func.isRequired,
@@ -73,7 +90,7 @@ const Audio = React.createClass({
     onPause: PropTypes.func.isRequired,
     onPlaying: PropTypes.func.isRequired,
     onUnmount: PropTypes.func.isRequired,
-    onCommand: PropTypes.func.isRequired,
+    onCommandComplete: PropTypes.func.isRequired,
     preload: PropTypes.oneOf(['none', 'metadata', 'auto']),
     src: PropTypes.string.isRequired,
     uniqueId: PropTypes.string.isRequired
