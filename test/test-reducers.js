@@ -7,7 +7,8 @@ const it = require('mocha-sugar-free').it
 const expect = require('chai').expect
 const reducer = require('../src/reducers').default
 const { audioPlay, audioPlaying, audioPause, audioPaused, audioEnded,
-        audioRegister, audioUnregister, audioSrc, audioCommand } = require('../src/actions')
+        audioRegister, audioUnregister, audioSrc, audioCommand,
+        audioCommandComplete, audioSeek, audioSkip } = require('../src/actions')
 const Map = require('immutable').Map
 
 describe('reducers', () => {
@@ -29,7 +30,9 @@ describe('reducers', () => {
   describe('AUDIO_PLAY actions', () => {
     it('changes the command of the Map with the corresponding id to "play"', () => {
       const result = reducer(Map({id: Map({command: 'none', state: 'none', src: ''})}), audioPlay('id'))
-      expect(result.get('id').equals(Map({command: 'play', state: 'none', src: ''}))).to.be.true
+      expect(result.get('id').toJS()).to.deep.equal(
+        {command: {command: 'play', args: []}, state: 'none', src: ''}
+      )
     })
   })
 
@@ -43,7 +46,18 @@ describe('reducers', () => {
   describe('AUDIO_PAUSE actions', () => {
     it('changes the command of the Map with the corresponding id to "pause"', () => {
       const result = reducer(Map({id: Map({command: 'none', state: 'none', src: ''})}), audioPause('id'))
-      expect(result.get('id').equals(Map({command: 'pause', state: 'none', src: ''}))).to.be.true
+      expect(result.get('id').toJS()).to.deep.equal(
+        {command: {command: 'pause', args: []}, state: 'none', src: ''}
+      )
+    })
+  })
+
+  describe('AUDIO_SEEK actions', () => {
+    it('changes the command on the Map with the corresponding id to "seek"', () => {
+      const result = reducer(Map({id: Map({command: 'none', state: 'none', src: ''})}), audioSeek('id', 2500))
+      expect(result.get('id').toJS()).to.deep.equal(
+        {command: {command: 'seek', args: [2500]}, state: 'none', src: ''}
+      )
     })
   })
 
@@ -68,9 +82,9 @@ describe('reducers', () => {
     })
   })
 
-  describe('AUDIO_COMMAND actions', () => {
+  describe('AUDIO_COMMAND_COMPLETE actions', () => {
     it('changes the state of the Map to set command to "none"', () => {
-      const result = reducer(Map({id: Map({command: 'play', state: 'playing', src: 'src'})}), audioCommand('id'))
+      const result = reducer(Map({id: Map({command: 'play', state: 'playing', src: 'src'})}), audioCommandComplete('id'))
       expect(result.get('id').toJS()).to.deep.equal({
         command: 'none',
         state: 'playing',
