@@ -43,7 +43,10 @@ const Audio = React.createClass({
   },
 
   componentDidUpdate (prevProps) {
-    if (this.props.command !== 'none' && this.props.command !== prevProps.command) this[this.props.command]()
+    if (this.props.command !== 'none' && this.props.command !== prevProps.command) {
+      this[this.props.command]()
+      this.props.onCommand(this.props.command);
+    }
   },
 
   render () {
@@ -70,6 +73,7 @@ const Audio = React.createClass({
     onPause: PropTypes.func.isRequired,
     onPlaying: PropTypes.func.isRequired,
     onUnmount: PropTypes.func.isRequired,
+    onCommand: PropTypes.func.isRequired,
     preload: PropTypes.oneOf(['none', 'metadata', 'auto']),
     src: PropTypes.string.isRequired,
     uniqueId: PropTypes.string.isRequired
